@@ -9,5 +9,6 @@ import { UserModule } from '../user/user.module';
   providers: [ListingService],
   controllers: [ListingController],
   imports: [TypeOrmModule.forFeature([Listing]), forwardRef(() => UserModule)],
+  exports: [TypeOrmModule],
 })
 export class ListingModule {}
