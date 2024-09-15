@@ -44,10 +44,6 @@ export class UserController {
 
   @Delete(':id')
   async deleteUserByID(@Param('id', ParseIntPipe) id: number) {
-    const user: User = await this.userService.getUserByID(id);
-    if (!user) {
-      throw new EntityNotFoundError(User, id);
-    }
-    return await this.userService.deleteUser(user);
+    return await this.userService.deleteUserByID(id);
   }
 }
