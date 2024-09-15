@@ -27,4 +27,8 @@ export class UserService {
   async deleteUserByID(id: number) {
     return this.userRepository.delete({ id: id });
   }
+
+  async deleteUser(user: User) {
+    return this.userRepository.remove(user);
+  }
 }

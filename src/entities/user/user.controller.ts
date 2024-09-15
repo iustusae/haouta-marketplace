@@ -1,4 +1,6 @@
 import {
+  BadRequestException,
+  Body,
   Controller,
   Delete,
   Get,
@@ -8,6 +10,9 @@ import {
   Put,
 } from '@nestjs/common';
 import { UserService } from './user.service';
+import { UserDTO } from './user.dto';
+import { User } from './user.entity';
+import { EntityNotFoundError } from 'typeorm';
 
 @Controller('users')
 export class UserController {
@@ -18,21 +23,31 @@ export class UserController {
     return await this.userService.getAllUsers();
   }
 
-  @Get('/:id')
+  @Get(':id')
   async getUserByID(@Param('id', ParseIntPipe) id: number) {
-    return await this.userService.getUserByID(id);
+    const user: User = await this.userService.getUserByID(id);
+    if (!user) {
+      throw new EntityNotFoundError(User, id);
+    }
+    return user;
   }
 
   @Post()
-  async createUser() {}
+  async createUser(@Body() createUserDto: UserDTO) {
+    return await this.userService.createUser(createUserDto as User);
+  }
 
-  @Put('/:id')
+  @Put(':id')
   async updateUserByID(@Param('id', ParseIntPipe) id: number) {
     return await this.updateUserByID(id);
   }
 
-  @Delete('/:id')
+  @Delete(':id')
   async deleteUserByID(@Param('id', ParseIntPipe) id: number) {
-    return await this.userService.deleteUserByID(id);
+    const user: User = await this.userService.getUserByID(id);
+    if (!user) {
+      throw new EntityNotFoundError(User, id);
+    }
+    return await this.userService.deleteUser(user);
   }
 }

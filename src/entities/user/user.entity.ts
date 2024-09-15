@@ -1,7 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Listing } from '../listing/listing.entity';
 
-@Entity()
+@Entity({ name: 'User' })
 export class User {
   @PrimaryGeneratedColumn({ type: 'int' })
   id: number;
@@ -12,7 +12,7 @@ export class User {
   @Column({ nullable: false })
   lastName: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, unique: true })
   email: string;
 
   @Column({ nullable: true })
