@@ -18,20 +18,24 @@ export class ListingService {
   }
 
   async getAllListings() {
-    return this.listingRepository.find();
+    return this.listingRepository.find({
+      relations: { owner: true },
+    });
   }
 
   async getAllUserListings(user_id: number) {
-    return this.listingRepository.findOne({
+    return this.listingRepository.find({
       where: { owner: { id: user_id } },
     });
   }
 
-  async getListingByID(listing_id: number) {
-    return this.listingRepository.findOne({ where: { id: listing_id } });
+  async getListingByID(user_id: number, listing_id: number) {
+    return this.listingRepository.findOne({
+      where: { id: listing_id, owner: { id: user_id } },
+    });
   }
 
-  async updateListingByID(newListing: Listing) {
+  async updateListing(newListing: Listing) {
     return this.listingRepository.save(newListing);
   }
 
