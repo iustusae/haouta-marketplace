@@ -7,6 +7,8 @@ import { ListingModule } from './entities/listing/listing.module';
 import { User } from './entities/user/user.entity';
 import { Listing } from './entities/listing/listing.entity';
 import { DataSource } from 'typeorm';
+import { AuthController } from './auth/auth.controller';
+import { AuthModule } from './auth/auth.module';
 import * as path from 'path';
 @Module({
   imports: [
@@ -19,8 +21,9 @@ import * as path from 'path';
     }),
     UserModule,
     ListingModule,
+    AuthModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, AuthController],
   providers: [AppService],
 })
 export class AppModule {
