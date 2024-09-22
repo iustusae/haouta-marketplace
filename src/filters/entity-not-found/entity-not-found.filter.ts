@@ -10,8 +10,8 @@ import { EntityNotFoundError } from 'typeorm';
 export class EntityNotFoundFilter implements ExceptionFilter {
   catch(exception: EntityNotFoundError, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
-    const reponse = ctx.getResponse();
-    return reponse.status(HttpStatus.NOT_FOUND).json({
+    const response = ctx.getResponse();
+    return response.status(HttpStatus.NOT_FOUND).json({
       message: {
         statusCode: HttpStatus.NOT_FOUND,
         error: 'Entity Not Found',

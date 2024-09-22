@@ -7,15 +7,15 @@ import { ListingModule } from './entities/listing/listing.module';
 import { User } from './entities/user/user.entity';
 import { Listing } from './entities/listing/listing.entity';
 import { DataSource } from 'typeorm';
-import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
 import * as path from 'path';
+import { UserLogin } from './entities/UserLogin/userlogin.entity';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: path.join(__dirname, '..', 'data', 'db.sqlite'),
-      entities: [User, Listing],
+      entities: [User, Listing, UserLogin],
       synchronize: true,
       logging: true,
     }),
@@ -23,7 +23,7 @@ import * as path from 'path';
     ListingModule,
     AuthModule,
   ],
-  controllers: [AppController, AuthController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {

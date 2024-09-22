@@ -1,16 +1,17 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Listing } from '../listing/listing.entity';
+import { UserLogin } from '../UserLogin/userlogin.entity';
 
 @Entity({ name: 'User' })
 export class User {
   @PrimaryGeneratedColumn({ type: 'int' })
   id: number;
-
-  @Column({ type: 'varchar', length: '255' })
-  username: string;
-
-  @Column({ type: 'varchar' })
-  password: string;
 
   @Column({ nullable: false })
   firstName: string;
@@ -26,4 +27,7 @@ export class User {
 
   @OneToMany(() => Listing, (listings) => listings.id)
   listings: Listing[];
+
+  @OneToOne(() => UserLogin, (user_info) => user_info)
+  userLoginInfo: UserLogin;
 }

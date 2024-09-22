@@ -9,6 +9,11 @@ export class UserService {
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
+  findByUsername(username: string): User | PromiseLike<User> {
+    return this.userRepository.findOne({
+      where: { userLoginInfo: { username: username } },
+    });
+  }
   async createUser(user: User) {
     return this.userRepository.insert(user);
   }
