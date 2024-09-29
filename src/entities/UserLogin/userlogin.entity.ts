@@ -1,4 +1,10 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { User } from '../user/user.entity';
 
 @Entity('user_login')
@@ -7,6 +13,7 @@ export class UserLogin {
   id: number;
 
   @OneToOne(() => User, (user) => user.id)
+  @JoinColumn({ name: 'user' })
   user: User;
 
   @Column({ type: 'varchar', length: '255', unique: true })

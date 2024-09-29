@@ -11,21 +11,21 @@ import { AuthModule } from './auth/auth.module';
 import * as path from 'path';
 import { UserLogin } from './entities/UserLogin/userlogin.entity';
 @Module({
-  imports: [
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: path.join(__dirname, '..', 'data', 'db.sqlite'),
-      entities: [User, Listing, UserLogin],
-      synchronize: true,
-      logging: true,
-    }),
-    UserModule,
-    ListingModule,
-    AuthModule,
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+    imports: [
+        TypeOrmModule.forRoot({
+            type: 'sqlite',
+            database: path.join(__dirname, '..', 'data', 'db.sqlite'),
+            entities: [User, Listing, UserLogin],
+            synchronize: false,
+            logging: true,
+        }),
+        UserModule,
+        ListingModule,
+        AuthModule,
+    ],
+    controllers: [AppController],
+    providers: [AppService],
 })
 export class AppModule {
-  constructor(private dataSource: DataSource) {}
+    constructor(private dataSource: DataSource) { }
 }

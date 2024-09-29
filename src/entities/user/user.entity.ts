@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -29,5 +30,6 @@ export class User {
   listings: Listing[];
 
   @OneToOne(() => UserLogin, (user_info) => user_info)
+  @JoinColumn({ name: 'user_info' })
   userLoginInfo: UserLogin;
 }
